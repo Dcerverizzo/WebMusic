@@ -14,17 +14,15 @@ namespace app\model;
  * @author @DanielCerverizzo
  */
 class PessoaModel extends \core\mvc\Model {
-    
+
     protected $nome;
     protected $endereco;
     protected $bairro;
     protected $cidade;
-    protected $telefone01;    
+    protected $telefone01;
     protected $email;
 
-    public function __construct($id = null, $nome = null, $endereco = null, 
-            $bairro = null, CidadeModel $cidade = null, $telefone01 = null,
-            $email = null) {
+    public function __construct($id = null, $nome = null, $endereco = null, $bairro = null, CidadeModel $cidade = null, $telefone01 = null, $email = null) {
         parent::__construct($id);
         $this->nome = $nome;
         $this->endereco = $endereco;
@@ -33,7 +31,7 @@ class PessoaModel extends \core\mvc\Model {
         $this->telefone01 = $telefone01;
         $this->email = $email;
     }
-    
+
     public function show() {
         echo "<h1>Dados de Pessoa</h1>";
         echo "<p><strong>Nome:</strong>{$this->nome}</p>";
@@ -91,8 +89,5 @@ class PessoaModel extends \core\mvc\Model {
     public function setEmail($email) {
         $this->email = $email;
     }
-
-
-    
 
 }

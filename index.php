@@ -11,7 +11,10 @@ and open the template in the editor.
     </head>
     <body>
         <?php
-   
+        require_once 'autoload.php';
+
+        $view = new \app\view\banda\BandaView();
+        $view->show();
         ?>
     </body>
 </html>
