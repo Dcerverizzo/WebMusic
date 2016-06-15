@@ -11,7 +11,7 @@ namespace app\dao;
 /**
  * Description of PessoaFisicaDao
  *
- * @author DanielCerverizzo
+ * @author jlgregorio81
  */
 class PessoaFisicaDao extends PessoaDao {
 
@@ -19,8 +19,8 @@ class PessoaFisicaDao extends PessoaDao {
     const TB_CPF = 'cpf';
     const TB_RG = 'rg';
     //..constantes para a tabela pessoa_fisica
-    const TABLE_NAME = 'pessoa';
-    const TB_ID_PESSOA = 'id_pessoa';
+    const TABLE_NAME = 'pessoa_fisica';
+    const TB_ID_PESSOA_FISICA = 'id_pessoa_fisica';
 
     public function __construct(\app\model\PessoaFisicaModel $model = null) {
         parent::__construct($model);
@@ -32,24 +32,27 @@ class PessoaFisicaDao extends PessoaDao {
             $this->connection->beginTransaction();
             //..insere/atualiza na tabela Pessoa e retorna o id inserido...
             $id = parent::insertUpdate(self::TB_SEQ);
+            
             //..se for atualização, então não retorna id. Neste caso será necessário pegar o id que já está no model.
             if (is_null($id))
                 $id = $this->model->getId();
+
+            
             //..cria um novo sqlObj
             $sqlObj = new \core\dao\SqlObject($this->connection);
             //..dados que serão inseridos/atualizados na tabela pessoa_fisica
-            $dados = array(self::TB_ID_PESSOA => $id,
+            $dados = array(self::TB_ID_PESSOA_FISICA => $id,
                 self::TB_SEXO => $this->model->getSexo(),
                 self::TB_CPF => $this->model->getCpf(),
                 self::TB_RG => $this->model->getRg(),
             );
             //..insere ou atualiza na tabela pessoa_fisica
             //..se o id do model for nulo, então é inserção...
-            if ($this->model->getId() == '')
+            if ($this->model->getId()=='')
                 $sqlObj->insert(self::TABLE_NAME, $dados);
             else
             //..senão é atualização.
-                $sqlObj->update(self::TABLE_NAME, $dados, self::TB_ID_PESSOA . " = {$id}");
+                $sqlObj->update(self::TABLE_NAME, $dados, self::TB_ID_PESSOA_FISICA . " = {$id}");
             //..aplica um commit
             $this->connection->commit();
         } catch (\Exception $ex) {
@@ -66,7 +69,7 @@ class PessoaFisicaDao extends PessoaDao {
             //..cria um novo sqlobj
             $sqlOjb = new \core\dao\SqlObject($this->connection);
             //..deleta o registro da pessoa_fisica
-            $sqlOjb->delete(self::TABLE_NAME, self::TB_ID_PESSOA . " = {$id}");
+            $sqlOjb->delete(self::TABLE_NAME, self::TB_ID_PESSOA_FISICA . " = {$id}");
             //..delete o registro da tabela pessoa
             parent::delete($id);
             //..confirma a transação.
@@ -82,7 +85,7 @@ class PessoaFisicaDao extends PessoaDao {
     public function findById($id) {
         try {
             $sqlObj = new \core\dao\SqlObject($this->connection);
-            $dados = $sqlObj->select('pessoa p, cidade c', 'p.*', "p.id_pessoa = {$id} and p.id_pessoa = p.id_pessoa and p.id_cidade = c.id_cidade");
+            $dados = $sqlObj->select('pessoa p, pessoa_fisica pf, cidade c', 'p.*, pf.*', "p.id_pessoa = {$id} and p.id_pessoa = pf.id_pessoa_fisica and p.id_cidade = c.id_cidade");
             if ($dados) {
                 $dados = $dados[0];
                 $cidadeDao = new CidadeDao();
@@ -100,7 +103,7 @@ class PessoaFisicaDao extends PessoaDao {
     public function selectAll($criteria = null, $orderBy = null, $groupBy = null, $limit = null) {
         try {
             $sqlObj = new \core\dao\SqlObject($this->connection);
-            $dados = $sqlObj->select('pessoa p,cidade c', 'p.* ', "p.id_pessoa = p.id_pessoa and p.id_cidade = c.id_cidade");
+            $dados = $sqlObj->select('pessoa p, pessoa_fisica pf, cidade c', 'p.*, pf.*', "p.id_pessoa = pf.id_pessoa_fisica and p.id_cidade = c.id_cidade");
             $pessoas = null;
             if ($dados) {
                 foreach ($dados as $dado) {
