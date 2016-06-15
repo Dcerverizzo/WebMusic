@@ -1,0 +1,31 @@
+<h1>Listar Clientes (Pessoa Juridica)</h1>
+<hr>
+<form method="post" action="Request.php?class=app\controller\PessoaJuridicaCtr&method=showList">
+    <label for="nome">Nome:</label>
+    <input type="text" name="nome" id="nome">
+    <input type="submit" name="comando" value="Listar">   
+    <br>
+</form>
+
+<table border="1">
+    <tr>
+        <th>Nome</th><th>CNPJ</th><th>Setor</th><th>Razão Social</th><th>Ramal</th><th>Telefone</th><th>Cidade</th><th>Visualizar</th>
+    </tr>
+    <?php
+    if ($this->model)
+        foreach ($this->model as $pessoaJuridica) {
+            ?>
+            <tr>
+                <td><?= $pessoaJuridica->getNome() ?></td>
+                <td><?= $pessoaJuridica->getCnpj() ?></td>
+                <td><?= $pessoaJuridica->getFuncao() ?></td>
+                <td><?= $pessoaJuridica->getRazaosocial() ?></td>
+                <td><?= $pessoaJuridica->getNumeroJuridico() ?></td>
+                <td><?= $pessoaJuridica->getTelefone01() ?></td>
+                <td><?= $pessoaJuridica->getCidade()->getNome() ?>/<?= $pessoaJuridica->getCidade()->getUf() ?></td>
+                <td><a href="Request.php?class=app\controller\PessoaJuridicaCtr&method=showView&id=<?= $pessoaJuridica->getId() ?>">OK</a></td>
+            </tr>
+            <?php
+        }
+    ?>
+</table>

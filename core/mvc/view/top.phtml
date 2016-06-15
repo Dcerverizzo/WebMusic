@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="utf-8">
+        <title><?= \core\Application::APP_NAME ?></title>
+        <style type="text/css">
+            #head, #foot{
+                background-color: #ccffff;
+            }
+            h1{
+                text-align: center;                
+            }            
+        </style>
+        
+    </head>
+    <body>
+        <div id="container">
+            <div id="head">
+                <h1>Exemplo MVC</h1>
+                <hr>
+
+            </div>
+            <nav>
+                <!-- os links devem ser direcionados aos controllers:
+                     sempre no formato: Request.php?class=[controller_usado]&method=[metodo_usado]
+                -->
+
+                <ul> 
+                    <li>Cadastrar
+                        <ul>
+                            <li><a href="Request.php?class=app\controller\MusicoCtr&method=showView">Musico</a></li>
+                            <li><a href="Request.php?class=app\controller\BandaCtr&method=showView">Banda</a></li>
+                            <li><a href="Request.php?class=app\controller\CidadeCtr&method=showView">Cidades em turnê</a></li>
+                            <li>Clientes
+                                <ul>
+                                    <li><a href="Request.php?class=app\controller\PessoaFisicaCtr&method=showView">Pessoa Física</a></li>
+                                </ul>
+                            </li>                            
+                        </ul>
+                    </li>
+                    <li>Listar
+                       <ul>
+                           <li><a href="Request.php?class=app\controller\BandaCtr&method=showList">Banda</a></li>
+                           <li><a href="Request.php?class=app\controller\MusicoCtr&method=showList">Musico</a></li>
+                           <li><a href="Request.php?class=app\controller\CidadeCtr&method=showList">Cidades em turnê</a></li>
+                            <li>Clientes
+                                <ul>
+                                    <li><a href="Request.php?class=app\controller\PessoaFisicaCtr&method=showList">Pessoa Física</a></li>
+                                    <li><a href="Request.php?class=app\controller\PessoaJuridicaCtr&method=showList">Pessoa Jurídica</a></li>
+                                </ul>
+                            </li>                            
+                        </ul>                         
+                    </li>
+                </ul>                   
+            </nav>
+
+
+
+

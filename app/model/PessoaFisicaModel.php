@@ -9,41 +9,30 @@
 namespace app\model;
 
 /**
- * Description of PessoaMusico
+ * Description of PessoaFisica
  *
- * @author DanielCerverizzo
+ * @author jlgregorio81
  */
 class PessoaFisicaModel extends PessoaModel {
-
+    
     private $sexo;
     private $cpf;
     private $rg;
-    private $banda;
-
-    public function __construct($id = null, $nome = null, $endereco = null, $bairro = null, CidadeModel $cidade = null, $telefone01 = null, $email = null, $sexo = null, $cpf = null, $rg = null, $banda = null) {
+    
+    public function __construct($id = null, $nome = null, $endereco = null, $bairro = null, CidadeModel $cidade = null, $telefone01 = null, $email = null, $sexo = null, $cpf = null, $rg = null) {
         parent::__construct($id, $nome, $endereco, $bairro, $cidade, $telefone01, $email);
         $this->sexo = $sexo;
         $this->cpf = $cpf;
         $this->rg = $rg;
-        $this->banda = $banda;
     }
-
+    
     public function show() {
         parent::show();
         echo "<p><strong>Sexo:</strong>{$this->sexo}</p>";
         echo "<p><strong>CPF:</strong>{$this->cpf}</p>";
         echo "<p><strong>RG:</strong>{$this->rg}</p>";
-        echo "<p><strong>BANDA:</strong>{$this->banda}</p>";
     }
-
-    function getBanda() {
-        return $this->banda;
-    }
-
-    function setBanda($banda) {
-        $this->banda = $banda;
-    }
-
+    
     public function getSexo() {
         return $this->sexo;
     }
@@ -68,4 +57,6 @@ class PessoaFisicaModel extends PessoaModel {
         $this->rg = $rg;
     }
 
+
+    
 }
