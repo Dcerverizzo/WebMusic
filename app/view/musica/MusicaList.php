@@ -6,23 +6,24 @@
  * and open the template in the editor.
  */
 
-namespace app\view\cidade;
+namespace app\view\musica;
 
 /**
- * Description of CidadeList
+ * Description of MusicaList
  *
- * @author DanielCerverizzo
+ * @author Daniel Cerverizzo
  */
-class CidadeList extends \core\mvc\view\HtmlPage {
+class MusicaList extends \core\mvc\view\HtmlPage {
 
-    public function __construct($model = null) {
+    function __construct($model = null) {
         $this->model = $model;
     }
 
     public function show() {
         $this->drawTop();
-        require_once 'cidade-list.phtml';
+        require_once 'musica-list.phtml';
         $this->drawBottom();
     }
 
+//put your code here
 }

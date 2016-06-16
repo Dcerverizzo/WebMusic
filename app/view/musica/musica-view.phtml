@@ -1,0 +1,22 @@
+<h1>Cadastro de Musicas</h1>
+<hr>
+<form method="post" action="Request.php?class=app\controller\MusicaCtr&method=run">
+    <input type="hidden" name="id" id="id" value="<?= $this->model->getId() ?>">
+    <label for="nome">Nome:</label><br>
+    <input type="text" name="nome" id="nome" value="<?= $this->model->getNome() ?>" required="required"><br>
+    <label for="duracao">Duração:</label><br>    
+    <input type="text" name="duracao"  value="<?php $this->model->getDuracao() ?>" required></label>  <br>    
+    <label for="album">Album:</label><br>
+    <input type="text" name="album" id="album" value="<?= $this->model->getAlbum() ?>"><br>
+    <label for="banda">Banda:</label><br>
+    <input type="text" name="banda" id="banda" value="<?= $this->model->getBanda() ?>"><br>    
+    <label for="compositor">Compositor:</label><br>
+    <input type="text" name="compositor" id="compositor" value="<?= $this->model->getCompositor() ?>" required="required"><br>
+
+    <input type="submit" name="comando" value="Novo">
+    <input type="submit" name="comando" value="Salvar">
+    <input type="submit" name="comando" value="Excluir">
+
+</form>
+
+

@@ -66,6 +66,22 @@ create table album(
     constraint fk_album_banda foreign key (id_album_banda) references banda(id_banda)
 );
 
+/*criando a tabela musica*/
+create sequence seq_musica;
+create table musica(
+id_musica integer not null default nextval('seq_musica'),
+nome varchar(50),
+duracao varchar(10),
+album varchar(50),
+banda varchar(50),
+id_banda integer not null,
+compositor1 varchar(50),
+compositor2 varchar(50),
+constraint pk_id_musica primary key (id_musica),
+constraint fk_banda_musica FOREIGN KEY (id_banda)
+references banda (id_banda) match simple ON UPDATE NO ACTION ON DELETE NO ACTION
+
+)
 
 
 
@@ -77,6 +93,7 @@ select * from banda
 select * from pessoa_musico
 select * from album
 select * from cidade
+select * from musica
 
 
 
