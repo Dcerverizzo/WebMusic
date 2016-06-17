@@ -19,14 +19,13 @@ class MusicaModel extends \core\mvc\Model {
     private $nome;
     private $album;
     private $banda;
-    private $id_banda;
     private $compositor;
 
-    function __construct($duracao = null, $album = null, $banda = null, $id_banda = null, $compositor = null, $nome = null) {
+    function __construct($id = null, $duracao = null, $album = null, $banda = null, $compositor = null, $nome = null) {
+        parent::__construct($id);
         $this->duracao = $duracao;
         $this->album = $album;
         $this->banda = $banda;
-        $this->id_banda = $id_banda;
         $this->compositor = $compositor;
         $this->nome = $nome;
     }
@@ -34,6 +33,7 @@ class MusicaModel extends \core\mvc\Model {
     public function show() {
         echo "<h1>Dados de Musica</h1>";
         echo "<p><strong>Nome:</strong>{$this->nome}</p>";
+        echo "<p><strong>Duração:</strong>{$this->duracao}</p>";
         echo "<p><strong>Album:</strong>{$this->album}</p>";
         echo "<p><strong>Banda:</strong>{$this->banda}</p>";
         echo "<p><strong>Compositor:</strong>{$this->compositor}</p>";
@@ -55,10 +55,6 @@ class MusicaModel extends \core\mvc\Model {
         return $this->banda;
     }
 
-    function getId_banda() {
-        return $this->id_banda;
-    }
-
     function getCompositor() {
         return $this->compositor;
     }
@@ -77,10 +73,6 @@ class MusicaModel extends \core\mvc\Model {
 
     function setBanda($banda) {
         $this->banda = $banda;
-    }
-
-    function setId_banda($id_banda) {
-        $this->id_banda = $id_banda;
     }
 
     function setCompositor($compositor) {

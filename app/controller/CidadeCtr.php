@@ -11,7 +11,7 @@ namespace app\controller;
 /**
  * Description of CidadeCtr
  *
- * @author jlgregorio81
+ * @author Daniel Cerverizzo
  */
 class CidadeCtr extends \core\mvc\Controller {
 

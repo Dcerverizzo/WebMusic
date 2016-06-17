@@ -1,0 +1,23 @@
+
+<h1>Cadastro de Bandas</h1>
+<hr>
+<form method="post" action="Request.php?class=app\controller\BandaCtr&method=run">
+    <input type="hidden" name="id" id="id" value="<?= $this->model->getId() ?>">
+    <label for="nome">Nome:</label>
+    <input type="text" name="nome" id="nome" maxlength="50" required="required" value="<?= $this->model->getNome() ?>">
+    <br>
+    
+    <label for="intour">In Tour:</label>    
+    <input type="radio" name="intour" value="t" <?php if ($this->model->getIntour() == 't') echo 'checked' ?>><label for="intour">ON Tour</label>    
+    <input type="radio" name="intour" value="f" <?php if ($this->model->getIntour() == 'f') echo 'checked' ?> ><label for="intour">OFF Tour</label><br>
+    
+    <label for="musico">Musico:</label>
+    <input type="text" name="musico" id="musico" maxlength="50" required="required" value="<?= $this->model->getMusico() ?>">
+    <br>
+     <br>
+    <input type="submit" name="comando" value="Novo">
+    <input type="submit" name="comando" value="Salvar">
+    <input type="submit" name="comando" value="Excluir">
+
+
+</form>

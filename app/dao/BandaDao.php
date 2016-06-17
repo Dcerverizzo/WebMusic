@@ -9,34 +9,27 @@
 namespace app\dao;
 
 /**
- * Description of MusicaDao
+ * Description of BandaDao
  *
  * @author Daniel Cerverizzo
  */
-class MusicaDao extends \core\dao\Dao {
-    /* private $duracao;
-      private $nome;
-      private $album;
-      private $banda;
-      private $id_banda;
-      private $compositor; */
+class BandaDao extends \core\dao\Dao {
 
     const TB_NOME = 'nome';
-    const TB_ALBUM = 'album';
-    const TB_BANDA = 'banda';
-    const TB_COMPOSITOR = 'compositor';
+    const TB_MUSICO = 'musico';
+    const TB_TOUR = 'intour';
 
     public function __construct(\core\mvc\Model $model = null) {
         parent::__construct($model);
-        $this->tableId = 'id_musica';
-        $this->tableName = 'musica';
+        $this->tableId = 'id_banda';
+        $this->tableName = 'banda';
         if (!$model) {
-            $this->model = new \app\model\MusicaModel();
+            $this->model = new \app\model\BandaModel();
         }
     }
 
     protected function setColumns() {
-        $this->columns = array(self::TB_NOME => $this->model->getNome(), self::TB_ALBUM => $this->model->getAlbum(), self::TB_BANDA => $this->model->getBanda(), self::TB_COMPOSITOR => $this->model->getCompositor());
+        $this->columns = array(self::TB_NOME => $this->model->getNome(), self::TB_MUSICO => $this->model->getMusico(), self::TB_TOUR => $this->model->getInTour());
     }
 
     public function findById($id) {
@@ -45,8 +38,8 @@ class MusicaDao extends \core\dao\Dao {
             $dados = $sqlObj->select($this->tableName, '*', "{$this->tableId} = {$id}");
             if ($dados) {
                 $dados = $dados[0];
-                $musicaModel = new \app\model\MusicaModel($dados[$this->tableId], $dados[self::TB_NOME], $dados[self::TB_ALBUM], $dados[self::TB_BANDA], $dados[self::TB_COMPOSITOR]);
-                return $musicaModel;
+                $bandaModel = new \app\model\BandaModel($dados[$this->tableId], $dados[self::TB_NOME], $dados[self::TB_MUSICO], $dados[self::TB_TOUR]);
+                return $bandaModel;
             } else {
                 return NULL;
             }
@@ -60,12 +53,12 @@ class MusicaDao extends \core\dao\Dao {
             $sqlObj = new \core\dao\SqlObject($this->connection);
             $dados = $sqlObj->select($this->tableName, '*', $criteria, $orderBy, $groupBy, $limit);
             if ($dados) {
-                $musicas = null;
+                $bandas = null;
                 foreach ($dados as $dado) {
-                    $musicaModel = new \app\model\MusicaModel($dado[$this->tableId], $dados[self::TB_NOME], $dados[self::TB_ALBUM], $dados[self::TB_BANDA], $dados[self::TB_COMPOSITOR]);
-                    $musicas[] = $musicaModel;
+                    $bandaModel = new \app\model\BandaModel($dado[$this->tableId], $dado[self::TB_NOME], $dado[self::TB_MUSICO], $dado[self::TB_TOUR]);
+                    $bandas[] = $bandaModel;
                 }
-                return $musicas;
+                return $bandas;
             } else {
                 return NULL;
             }
@@ -74,5 +67,4 @@ class MusicaDao extends \core\dao\Dao {
         }
     }
 
-//put your code here
 }

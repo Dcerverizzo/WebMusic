@@ -11,7 +11,7 @@ namespace app\model;
 /**
  * Description of CidadeModel
  *
- * @author jlgregorio81
+ * @author DanCerverizzo
  */
 class CidadeModel extends \core\mvc\Model {
 

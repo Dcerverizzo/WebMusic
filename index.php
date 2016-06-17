@@ -11,7 +11,10 @@ require_once 'autoload.php';
 //  $cidade = new app\view\cidade\CidadeView();
 //$cidade->show();
 
-$musica = new \app\view\musica\MusicaView();
-$musica->show();
+/*$musica = new \app\view\musica\MusicaView();
+$musica->show();*/
+
+$banda = new \app\view\banda\BandaView();
+$banda->show();
 
 ?>
