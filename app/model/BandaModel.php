@@ -16,29 +16,22 @@ namespace app\model;
 class BandaModel extends \core\mvc\Model {
 
     private $nome;
-    private $musico;
     private $intour;
 
-    public function __construct($id = null, $nome = null, $musico = null, $intour = null) {
+    public function __construct($id = null, $nome = null, $intour = null) {
         parent::__construct($id);
         $this->nome = $nome;
-        $this->musico = $musico;
         $this->intour = $intour;
     }
 
     public function show() {
         echo "<h1>Dados da Banda</h1>";
         echo "<p><strong>Nome:</strong>{$this->nome}</p>";
-        echo "<p><strong>Musica:</strong>{$this->musico}</p>";
         echo "<p><strong>On Tour:</strong>{$this->intour}</p>";
     }
 
     function getNome() {
         return $this->nome;
-    }
-
-    function getMusico() {
-        return $this->musico;
     }
 
     function getIntour() {
@@ -49,12 +42,15 @@ class BandaModel extends \core\mvc\Model {
         $this->nome = $nome;
     }
 
-    function setMusico($musico) {
-        $this->musico = $musico;
-    }
-
     function setIntour($intour) {
         $this->intour = $intour;
+    }
+
+    function getIntours() {
+        if ($this->intour == true) {
+            return "Tour on";
+        } else
+            return "Tour off";
     }
 
 }

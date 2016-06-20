@@ -8,10 +8,21 @@
     <input type="text" name="duracao"  value="<?php $this->model->getDuracao() ?>" required></label>  <br>    
     <label for="album">Album:</label><br>
     <input type="text" name="album" id="album" value="<?= $this->model->getAlbum() ?>"><br>
-    <label for="banda">Banda:</label><br>
-    <input type="text" name="banda" id="banda" value="<?= $this->model->getBanda() ?>"><br>    
+    <label>Banda:</label>
+    <select name="categoria">
+        <?php
+        $bandas = $this->banda;
+        foreach ($bandas as $banda) {
+            if ($banda->getId() == $this->model->getBandaModel()->getId())
+                echo "<option selected value=\"{$banda->getId()}\">{$banda->getNome()}</option>";
+            else
+                echo "<option value=\"{$banda->getId()}\">{$banda->getNome()}</option>";
+        }
+        ?>
+    </select>
+    <br>
     <label for="compositor">Compositor:</label><br>
-    <input type="text" name="compositor" id="compositor" value="<?= $this->model->getCompositor() ?>" required="required"><br>
+    <input type="text" name="compositor" id="compositor" value="<?php $this->model->getCompositor() ?>"><br>
 
     <input type="submit" name="comando" value="Novo">
     <input type="submit" name="comando" value="Salvar">

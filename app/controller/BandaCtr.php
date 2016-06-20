@@ -21,8 +21,6 @@ class BandaCtr extends \core\mvc\Controller {
         $this->model = new \app\model\BandaModel();
         $this->dao = new \app\dao\BandaDao();
     }
-    
-    
 
     public function showList() {
         try {
@@ -40,7 +38,16 @@ class BandaCtr extends \core\mvc\Controller {
     }
 
     public function viewToModel() {
-        $this->model = new \app\model\BandaModel($this->post['id'], $this->post['nome'], $this->post['musico'], $this->post['intour']);
+        $this->model = new \app\model\BandaModel($this->post['id'], $this->post['nome'], $this->post['intour']);
+    }
+
+    public function getBandas() {
+        try {
+            return $this->dao->selectAll(NULL, \app\dao\BandaDao::TB_NOME);
+        } catch (\Exception $ex) {
+            $view = new \core\mvc\view\Message(\core\Application::MSG_ERROR);
+            $view->show();
+        }
     }
 
 //put your code here

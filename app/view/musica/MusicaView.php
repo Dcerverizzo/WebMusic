@@ -15,8 +15,13 @@ namespace app\view\musica;
  */
 class MusicaView extends \core\mvc\view\HtmlPage {
 
+    private $bandas;
+
     public function __construct(\app\model\MusicaModel $model = null) {
         is_null($model) ? $this->model = new \app\model\MusicaModel() : $this->model = $model;
+
+        $bandaCtr = new \app\controller\BandaCtr();
+        $this->bandas = $bandaCtr->getBandas();
     }
 
     public function show() {

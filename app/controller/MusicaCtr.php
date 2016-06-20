@@ -26,8 +26,13 @@ class MusicaCtr extends \core\mvc\Controller {
         try {
             $dados = null;
             if ($this->post) {
-                $nome = $this->post['nome'];
-                $dados = $this->dao->selectAll("upper(" . \app\dao\MusicaDao::TB_NOME . ") like upper('{$nome}%')", \app\dao\MusicaDao::TB_NOME);
+                $sqlObj = new \core\dao\SqlObject(\core\dao\Connection::getConnection());
+                $criterio = "m.id_banda = b.id_banda";
+                $criterio .= " and upper(b.nome) like upper('{$this->post['nome']}%')";
+                if ($this->post['banda'] > 0)
+                    $criterio .= " and b.id_banda = {$this->post['banda']}";
+                $this->post['ordenar'] == 0 ? $orderBy = 'm.nome, b.nome' : $orderBy = 'b.nome, m.nome';
+                $dados = $sqlObj->select(' musica m, banda b', 'm.id_banda,m.nome,m.duracao,m.album,m.compositor1, b.nome as banda', $criterio, $orderBy);
             }
             $view = new \app\view\musica\MusicaList($dados);
         } catch (\Exception $ex) {
@@ -38,7 +43,21 @@ class MusicaCtr extends \core\mvc\Controller {
     }
 
     public function viewToModel() {
-        $this->model = new \app\model\MusicaModel($this->post['id'], $this->post['nome'], $this->post['duracao'], $this->post['album'], $this->post['banda'], $this->post['compositor']);
+        $this->model = new \app\model\MusicaModel($this->post['id'],
+                $this->post['nome'],
+                $this->post['duracao'],
+                $this->post['album'],
+                new \app\model\BandaModel($this->post['banda']),
+                $this->post['compositor']);
+    }
+
+    public function getBandas() {
+        try {
+            return $this->dao->selectAll(NULL, \app\dao\BandaDao::TB_NOME);
+        } catch (\Exception $ex) {
+            $view = new \core\mvc\view\Message(\core\Application::MSG_ERROR);
+            $view->show();
+        }
     }
 
 //put your code here

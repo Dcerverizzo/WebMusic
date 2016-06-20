@@ -9,7 +9,6 @@
 <table border="1">
     <tr>
         <th>Nome</th>
-        <th>Musico</th>
         <th>Intour</th>
         <th>Visualizar</th>
     </tr>
@@ -20,8 +19,7 @@
                 ?>
                 <tr>
                     <td><?=$banda->getNome()?></td>
-                    <td><?=$banda->getMusico()?></td>
-                    <td><?=$banda->getInTour()?></td>
+                    <td><?=$banda->getInTours()?></td>
                     <td><a href="Request.php?class=app\controller\BandaCtr&method=showView&id=<?=$banda->getId()?>">OK</a></td>
                 </tr>
             <?php
