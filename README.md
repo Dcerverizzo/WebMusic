@@ -1,5 +1,5 @@
 # WebMusic
-<<<<<<< HEAD
+
 Sistema em php para cadastro simples de Álbuns e musicas 
 
 #Objetivos
@@ -8,11 +8,14 @@ de desenvolvimento para servidores 2, que consiste em aplicar modelo de cadastro
 desenvolvido pelos em aula.
 
 #Tecnologia Utilizada
-1.HTML5
-2.CSS3
-3.Twitter Bootstrap
-4.Jquery
-=======
+- HTML5
+- CSS3
+- Twitter Bootstrap
+- Jquery
+ - Design Patters
+ - PostgreSQL
+ - Strategy 
+ 
 Sistema web desenvolvido na linguagem PHP para simples cadastros e algumas funcionalidades utilizando vários padrões de projetos e boas práticas de programação, sempre aprimorando o conhecimento adquirido em sala de aula.
 
 #Objetivos
@@ -40,10 +43,10 @@ de desenvolvimento para servidores 2 e me ajudar em obter novos discos e ter um 
 - [x] Layout Responsivo, elegante sempre mantendo boa usuabilidade
 - [ ] Gerar Relatorios com filtros
 - [ ] Fazer auditoria do sistema com foco em segurança(Login e senha)
-<<<<<<< HEAD
+- [ ] Envio de email
 
-=======
-- [ ] Enviar Email
+
+
 
 ######Software desenvolvido por Daniel Cerverizzo para contato daniel_cerverizo@hotmail.com / danielcerverizzo@gmail.com
->>>>>>> origin/master
+
