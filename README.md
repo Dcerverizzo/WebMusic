@@ -12,9 +12,9 @@ desenvolvido pelos em aula.
 - CSS3
 - Twitter Bootstrap
 - Jquery
- - Design Patters
- - PostgreSQL
- - Strategy 
+- Design Patters
+- PostgreSQL
+- Strategy 
  
 Sistema web desenvolvido na linguagem PHP para simples cadastros e algumas funcionalidades utilizando vários padrões de projetos e boas práticas de programação, sempre aprimorando o conhecimento adquirido em sala de aula.
 
@@ -35,7 +35,7 @@ de desenvolvimento para servidores 2 e me ajudar em obter novos discos e ter um 
 - PhpDocumentor
 - Strategy
 - POO
->>>>>>> origin/master
+
 
 - [x] Cadastro de Musicos,bandas,albuns 
 - [x] Listagem de Musicos,bandas, albuns
