@@ -39,7 +39,7 @@ class MusicaModel extends \core\mvc\Model {
         echo "<p><strong>Compositor:</strong>{$this->compositor}</p>";
     }
 
-    function getDuracao() {
+    public function getDuracao() {
         return $this->duracao;
     }
 
@@ -47,15 +47,15 @@ class MusicaModel extends \core\mvc\Model {
         return $this->nome;
     }
 
-    function getAlbum() {
+    public function getAlbum() {
         return $this->album;
     }
 
-    function getCompositor() {
+    public function getCompositor() {
         return $this->compositor;
     }
 
-    function setDuracao($duracao) {
+    public function setDuracao($duracao) {
         $this->duracao = $duracao;
     }
 
@@ -63,19 +63,19 @@ class MusicaModel extends \core\mvc\Model {
         $this->nome = $nome;
     }
 
-    function setAlbum($album) {
+    public function setAlbum($album) {
         $this->album = $album;
     }
 
-    function getBandaModel() {
+    public function getBandaModel() {
         return $this->bandaModel;
     }
 
-    function setBandaModel($bandaModel) {
+    public function setBandaModel($bandaModel) {
         $this->bandaModel = $bandaModel;
     }
 
-    function setCompositor($compositor) {
+    public function setCompositor($compositor) {
         $this->compositor = $compositor;
     }
 

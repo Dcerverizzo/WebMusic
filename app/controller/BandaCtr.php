@@ -38,7 +38,7 @@ class BandaCtr extends \core\mvc\Controller {
     }
 
     public function viewToModel() {
-        $this->model = new \app\model\BandaModel($this->post['id'], $this->post['nome'], $this->post['intour']);
+        $this->model = new \app\model\BandaModel($this->post['id'], $this->post['nome']);
     }
 
     public function getBandas() {
@@ -48,6 +48,11 @@ class BandaCtr extends \core\mvc\Controller {
             $view = new \core\mvc\view\Message(\core\Application::MSG_ERROR);
             $view->show();
         }
+    }
+
+    public function showReport() {
+        $view = new \app\view\banda\BandaReport();
+        $view->showReport();
     }
 
 //put your code here

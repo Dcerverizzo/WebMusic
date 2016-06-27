@@ -55,7 +55,10 @@ class CidadeCtr extends \core\mvc\Controller {
             echo 'erro';
         }
     }
-    
 
+    public function showReport() {
+        $view = new \app\view\cidade\CidadeReport();
+        $view->showReport();
+    }
 
 }

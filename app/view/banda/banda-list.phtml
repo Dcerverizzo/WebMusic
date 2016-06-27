@@ -11,17 +11,20 @@
         <th>Nome</th>
         <th>Intour</th>
         <th>Visualizar</th>
+        <th>Relatorio</th>
     </tr>
     <tr>
         <?php
         if ($this->model) {
             foreach ($this->model as $banda) {
                 ?>
-                <tr>
-                    <td><?=$banda->getNome()?></td>
-                    <td><?=$banda->getInTours()?></td>
-                    <td><a href="Request.php?class=app\controller\BandaCtr&method=showView&id=<?=$banda->getId()?>">OK</a></td>
-                </tr>
+            <tr>
+                <td><?= $banda->getNome() ?></td>
+                <td><?= $banda->getInTours() ?></td>
+                <td><a href="Request.php?class=app\controller\BandaCtr&method=showView&id=<?= $banda->getId() ?>">OK</a></td>
+                <td><a href="Request.php?class=app\controller\BandaCtr&method=showReport">Relatorio</a></td>
+
+            </tr>
             <?php
         }
     }

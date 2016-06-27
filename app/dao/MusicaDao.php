@@ -19,6 +19,7 @@ class MusicaDao extends \core\dao\Dao {
     const TB_ALBUM = 'album';
     const TB_ID_BANDA = 'id_banda';
     const TB_COMPOSITOR = 'compositor1';
+    const TB_DURACAO = 'duracao';
 
     public function __construct(\core\mvc\Model $model = null) {
         parent::__construct($model);
@@ -32,8 +33,9 @@ class MusicaDao extends \core\dao\Dao {
     protected function setColumns() {
         $this->columns = array(self::TB_NOME => $this->model->getNome(),
             self::TB_ALBUM => $this->model->getAlbum(),
-            self::TB_ID_BANDA => $this->model->getBandaModel()->getId(),
-            self::TB_COMPOSITOR => $this->model->getCompositor());
+            self::TB_COMPOSITOR => $this->model->getCompositor(),
+            self::TB_DURACAO => $this->model->getDuracao(),
+            self::TB_ID_BANDA => $this->model->getBandaModel()->getId());
     }
 
     public function findById($id) {
@@ -42,10 +44,11 @@ class MusicaDao extends \core\dao\Dao {
             $dados = $sqlObj->select($this->tableName, '*', "{$this->tableId} = {$id}");
             if ($dados) {
                 $dados = $dados[0];
+                //Recupera a banda da musica
                 $bandaDao = new BandaDao();
                 $bandaModel = $bandaDao->findById($dados[self::TB_ID_BANDA]);
-                $musicaModel = new \app\model\MusicaModel($dados[$this->tableId], $dados[self::TB_NOME], $dados[self::TB_ALBUM], $bandaModel, $dados[self::TB_COMPOSITOR]);
-                return $musicaModel;
+                $musicaModel = new \app\model\MusicaModel($dados[$this->tableId], $dados[self::TB_DURACAO], $dados[self::TB_ALBUM], $dados[self::TB_COMPOSITOR], $dados[self::TB_NOME], $bandaModel);
+                return $musicaModel; //insert into musica (nome, album, id_banda, compositor1, duracao) 
             } else {
                 return NULL;
             }
@@ -61,8 +64,8 @@ class MusicaDao extends \core\dao\Dao {
                 $musicas = null;
                 foreach ($dados as $musica) {
                     $bandaDao = new BandaDao();
-                    $bandaModel = $bandaDao->findById($produto[self::TB_ID_BANDA]);
-                    $musicaModel = new \app\model\MusicaModel($musica[$this->tableId], $musica[self::TB_NOME], $musica[self::TB_ALBUM], $musica[self::TB_COMPOSITOR], $bandaModel);
+                    $bandaModel = $bandaDao->findById($musica[self::TB_ID_BANDA]);
+                    $musicaModel = new \app\model\MusicaModel($musica[$this->tableId], $musica[self::TB_NOME], $musica[self::TB_ALBUM], $musica[self::TB_COMPOSITOR], $musica[self::TB_DURACAO], $musica[self::TB_BANDA], $bandaModel);
                     $musicas[] = $musicaModel;
                 }
                 return $musicas;
@@ -71,6 +74,23 @@ class MusicaDao extends \core\dao\Dao {
             }
         } catch (\Exception $ex) {
             throw $ex;
+        }
+    }
+
+    /* Implementado getBandasJson pra ver se melhora a listagem do bandas */
+
+    public function getBandasJson($nome = null) {
+        try {
+            $sqlObj = new \core\dao\SqlObject($this->connection);
+            $criteria = "upper (m.nome) like upper('{$nome}%') and m.id_banda = b.id_banda";
+            $dados = $sqlObj->select('musica m, banda b', 'm.id_banda, m.nome, m.duracao,m.album,m.compositor1, b.nome as banda', $criteria, 'm.nome');
+            if ($dados) {
+                return json_encode($dados);
+            } else {
+                return '';
+            }
+        } catch (\Exception $ex) {
+            
         }
     }
 

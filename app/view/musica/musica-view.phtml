@@ -5,13 +5,13 @@
     <label for="nome">Nome:</label><br>
     <input type="text" name="nome" id="nome" value="<?= $this->model->getNome() ?>" required="required"><br>
     <label for="duracao">Duração:</label><br>    
-    <input type="text" name="duracao"  value="<?php $this->model->getDuracao() ?>" required></label>  <br>    
+    <input type="text" name="duracao"  value="<?= $this->model->getDuracao() ?>" required></label>  <br>    
     <label for="album">Album:</label><br>
     <input type="text" name="album" id="album" value="<?= $this->model->getAlbum() ?>"><br>
     <label>Banda:</label>
-    <select name="categoria">
+    <select name="banda">
         <?php
-        $bandas = $this->banda;
+        $bandas = $this->bandas;
         foreach ($bandas as $banda) {
             if ($banda->getId() == $this->model->getBandaModel()->getId())
                 echo "<option selected value=\"{$banda->getId()}\">{$banda->getNome()}</option>";
@@ -22,7 +22,7 @@
     </select>
     <br>
     <label for="compositor">Compositor:</label><br>
-    <input type="text" name="compositor" id="compositor" value="<?php $this->model->getCompositor() ?>"><br>
+    <input type="text" name="compositor" id="compositor" value="<?= $this->model->getCompositor() ?>"><br>
 
     <input type="submit" name="comando" value="Novo">
     <input type="submit" name="comando" value="Salvar">

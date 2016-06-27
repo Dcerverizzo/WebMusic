@@ -20,7 +20,7 @@ class MusicaList extends \core\mvc\view\HtmlPage {
     function __construct($model = null) {
         $this->model = $model;
         $bandaCtr = new \app\controller\BandaCtr();
-        $this->musicas = $bandaCtr->getBandas();
+        $this->bandas = $bandaCtr->getBandas();
     }
 
     public function show() {

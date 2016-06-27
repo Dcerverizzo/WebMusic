@@ -12,18 +12,20 @@
         <th>UF</th>
         <th>CEP</th>
         <th>Visualizar</th>
+        <th>Relatorio</th>
     </tr>
     <tr>
         <?php
         if ($this->model) {
             foreach ($this->model as $cidade) {
                 ?>
-                <tr>
-                    <td><?=$cidade->getNome()?></td>
-                    <td><?=$cidade->getUf()?></td>
-                    <td><?=$cidade->getCep()?></td>
-                    <td><a href="Request.php?class=app\controller\CidadeCtr&method=showView&id=<?=$cidade->getId()?>">OK</a></td>
-                </tr>
+            <tr>
+                <td><?= $cidade->getNome() ?></td>
+                <td><?= $cidade->getUf() ?></td>
+                <td><?= $cidade->getCep() ?></td>
+                <td><a href="Request.php?class=app\controller\CidadeCtr&method=showView&id=<?= $cidade->getId() ?>">OK</a></td>
+                <td><a href="Request.php?class=app\controller\CidadeCtr&method=showReport">Relatorio</a></td>
+            </tr>
             <?php
         }
     }

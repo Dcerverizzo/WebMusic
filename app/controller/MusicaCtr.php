@@ -26,13 +26,18 @@ class MusicaCtr extends \core\mvc\Controller {
         try {
             $dados = null;
             if ($this->post) {
+                //..cria um SQLObject para realizar um select no BD
                 $sqlObj = new \core\dao\SqlObject(\core\dao\Connection::getConnection());
+                //..define a join
+                //   $criterio = "p.id_categoria = c.id_categoria";
                 $criterio = "m.id_banda = b.id_banda";
-                $criterio .= " and upper(b.nome) like upper('{$this->post['nome']}%')";
+                //..define os critérios de seleção
+                $criterio .= " and upper(m.nome) like upper('{$this->post['nome']}%')";
                 if ($this->post['banda'] > 0)
-                    $criterio .= " and b.id_banda = {$this->post['banda']}";
+                    $criterio .= " and m.id_banda = {$this->post['banda']}";
+
                 $this->post['ordenar'] == 0 ? $orderBy = 'm.nome, b.nome' : $orderBy = 'b.nome, m.nome';
-                $dados = $sqlObj->select(' musica m, banda b', 'm.id_banda,m.nome,m.duracao,m.album,m.compositor1, b.nome as banda', $criterio, $orderBy);
+                $dados = $sqlObj->select('musica m, banda b', 'm.id_musica,m.nome,m.duracao,m.album,m.id_banda,m.compositor1, b.nome as banda', $criterio, $orderBy);
             }
             $view = new \app\view\musica\MusicaList($dados);
         } catch (\Exception $ex) {
@@ -43,21 +48,24 @@ class MusicaCtr extends \core\mvc\Controller {
     }
 
     public function viewToModel() {
-        $this->model = new \app\model\MusicaModel($this->post['id'],
-                $this->post['nome'],
-                $this->post['duracao'],
-                $this->post['album'],
-                new \app\model\BandaModel($this->post['banda']),
-                $this->post['compositor']);
+        $this->model = new \app\model\MusicaModel(
+                $this->post['id'], $this->post['duracao'], $this->post['album'], $this->post['compositor'], $this->post['nome'], new \app\model\BandaModel($this->post['banda']));
     }
+
+//(nome, album, id_banda, compositor1, duracao) 
 
     public function getBandas() {
         try {
-            return $this->dao->selectAll(NULL, \app\dao\BandaDao::TB_NOME);
+            $nome = $this->get['nome'];
+            echo $this->dao->getBandasJson($nome);
         } catch (\Exception $ex) {
-            $view = new \core\mvc\view\Message(\core\Application::MSG_ERROR);
-            $view->show();
+            echo 'erro';
         }
+    }
+
+    public function showReport() {
+        $view = new \app\view\musica\MusicaReport();
+        $view->showReport();
     }
 
 //put your code here

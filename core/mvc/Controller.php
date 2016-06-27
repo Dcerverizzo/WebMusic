@@ -17,23 +17,24 @@ abstract class Controller {
 
     protected $view;
 
-
     /**
      * O modelo que o controller manipulará
      * @var core\mvc\Model
      */
     protected $model;
+
     /**
      * O objeto DAO que será usado.
      * @var core\dao\Dao 
      */
     protected $dao;
-    
+
     /**
      * O array GET
      * @var $_GET
      */
     protected $get;
+
     /**
      * o array POST
      * @var $_POST
@@ -68,7 +69,7 @@ abstract class Controller {
             $msg = new \core\mvc\view\Message(\core\Application::MSG_SUCCESS);
         } catch (\Exception $ex) {
             //..caso ocorra algum erro, cria uma view com mensagem de erro
-            $msg = new \core\mvc\view\Message(\core\Application::MSG_ERROR .  "\n{$ex->getMessage()}");
+            $msg = new \core\mvc\view\Message(\core\Application::MSG_ERROR . "\n{$ex->getMessage()}");
         } finally {
             //..mostra a view criada
             $msg->show();
@@ -107,18 +108,17 @@ abstract class Controller {
                     //..recupera o modelo fazendo uma consulta no bando por id
                     $this->model = $this->dao->findById($id);
                 }
-            }                        
+            }
             //..se recuperou um model, então...
-            if ($this->model){
+            if ($this->model) {
                 //..verifica qual é a view com o método get_class;
-                $viewClass = get_class($this->view);            
+                $viewClass = get_class($this->view);
                 //..instancia uma nova view
                 $view = new $viewClass;
                 //..seta o model da view
-                $view->setModel($this->model);                
-            }
-            else
-                //..senão cria a view com mensagem de não encontrado
+                $view->setModel($this->model);
+            } else
+            //..senão cria a view com mensagem de não encontrado
                 $view = new \core\mvc\view\Message(\core\Application::MSG_NOT_FOUND);
         } catch (\Exception $ex) {
             //..se acontecer algum problema, cria uma view com mensagem de erro
@@ -158,7 +158,4 @@ abstract class Controller {
      * Exibe a view de listagem (ou pesquisa)
      */
     public abstract function showList();
-        
-    
-
 }

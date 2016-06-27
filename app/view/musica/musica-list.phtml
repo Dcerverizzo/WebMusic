@@ -1,17 +1,17 @@
-<h1>Listar produtos</h1>
+<h1>Listar Musica</h1>
 <hr>
 <form method="post" action="Request.php?class=app\controller\MusicaCtr&method=showList">
     <label for="nome">Nome:</label>
     <input type="text" name="nome" id="nome">
-   
-    
+
+
     <label for="banda">Banda:</label>
     <select name="banda" id="banda">
         <option value="0">Todas</option>
         <?php
         foreach ($this->bandas as $banda) {
             ?>
-            <option value="<?= $banda->getId() ?>"><?= $banda->getNomeBanda() ?></option>
+            <option value="<?= $banda->getId() ?>"><?= $banda->getNome() ?></option>
             <?php
         }
         ?>
@@ -21,25 +21,25 @@
         <option value="0">Nome da Musica</option>
         <option value="1">Nome da Banda</option>
     </select>
-    
     <input type="submit" name="comando" value="Listar">    
 </form>
 
 <table border="1">
     <tr>
-        <th>Nome</th><th>Duração</th><th>Album</th><th>Compositor</th><th>Banda</th><th>Visualizar</th>
+        <th>Musica</th><th>Banda</th><th>Duração</th><th>Album</th><th>Compositor</th><th>Visualizar</th><th>Gerar Relatorio</th>
     </tr>
     <?php
     if ($this->model) {
         foreach ($this->model as $musica) {
             ?>
             <tr>
-                <td><?=$musica['nome']?></td>
-                <td><?=$musica['duracao']?></td>
-                <td><?=$musica['album']?></td>
-                <td><?=$musica['compositor1']?></td>
-                <td><?=$musica['banda']?></td>   
-                <td><a href="Request.php?class=app\controller\MusicaCtr&method=showView&id=<?=$musica['id_banda']?>">OK</a></td>
+                <td><?= $musica['nome'] ?></td>
+                <td><?= $musica['banda'] ?></td>
+                <td><?= $musica['duracao'] ?></td>
+                <td><?= $musica['album'] ?></td>
+                <td><?= $musica['compositor1'] ?></td>   
+                <td><a href="Request.php?class=app\controller\MusicaCtr&method=showView&id=<?= $musica['id_musica'] ?>">OK</a></td>
+                <td><a href="Request.php?class=app\controller\MusicaCtr&method=showReport">Relatorio</a></td>
             </tr>
             <?php
         }
