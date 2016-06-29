@@ -9,7 +9,7 @@
     <body>
         <div class="login-card">
             <h1>Login</h1><br>
-            <form id="login" name="login" action="Request.php?class=app\controller\MusicoCtr&method=LogUser"  method="POST">
+            <form id="login" name="login" action="Request.php?class=app\controller\MusicoCtr&method=LogUser&acao=logar"  method="POST">
                 <input type="text" name="login" placeholder="Usuario">
                 <input type="password" name="senha" placeholder="Senha">
                 <input type="hidden"  name="acao" value="logar"/> 
@@ -17,7 +17,7 @@
             </form>
 
             <div class="login-help">
-                <a href="Request.php?class=app\controller\MusicoCtr&method=showView">Registrar</a> 
+                <a href="Request.php?class=app\controller\MusicoCtr&method=LogUser&acao=cadastrar">Registrar</a> 
             </div>
         </div>
 

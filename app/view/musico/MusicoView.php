@@ -24,7 +24,7 @@ class MusicoView extends \core\mvc\view\HtmlPage {
     }
 
     public function show() {
-        $this->drawTop();
+        //$this->drawTop();
         require_once 'musico-view.phtml';
         $this->drawBottom();
     }

@@ -1,45 +1,120 @@
-<div class="container">
-    <h1>Cadastro de Musicos (Let's Rock)</h1>
-</div>
+<html lang="en">
+    <?php session_start(); ?>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+        <title>Logo Nav - Start Bootstrap Template</title>
+
+        <!-- Bootstrap Core CSS -->
+        <link href="core/vendor/css/bootstrap.min.css" rel="stylesheet">
+        <script type="text/javascript" src="core/vendor/jquery-1.12.3.js"></script>
+
+        <!-- Custom CSS -->
+        <link href="core/vendor/css/logo-nav.css" rel="stylesheet">
+    </head>
+    <body>
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            <div class="container">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="http://localhost/GitHub/WebMusic/">
+                        <img class="pull-left" src="core/vendor/img/logo12.png" alt="logo" height="66px" width="100px">
+                    </a>
+                </div>
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        <li>
+                            <a href="about.php">Sobre</a>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Cadastro <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="Request.php?class=app\controller\MusicoCtr&method=showView">Musico</a></li>
+                                <li><a href="Request.php?class=app\controller\BandaCtr&method=showView">Banda</a></li>
+                                <li><a href="Request.php?class=app\controller\CidadeCtr&method=showView">Cidades em turnê</a></li>
+                                <li><a href="Request.php?class=app\controller\MusicaCtr&method=showView">Musica</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Listagem <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="Request.php?class=app\controller\BandaCtr&method=showList">Banda</a></li>
+                                <li><a href="Request.php?class=app\controller\MusicoCtr&method=showList">Musico</a></li>
+                                <li><a href="Request.php?class=app\controller\CidadeCtr&method=showList">Cidades em turnê</a></li>
+                                <li><a href="Request.php?class=app\controller\MusicaCtr&method=showList">Música</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <div class="pull-right">
+                        <?php
+                        if (isset($_SESSION['usuario']) || isset($_SESSION['convidado'])) {
+                            echo '<a href="Request.php?class=app\controller\MusicoCtr&method=LogUser&acao=Logout">Logout</a>';
+                        } else {
+                            header("location:http://localhost/GitHub/WebMusic/login.php");
+                            echo ' <a class="pull-right" href="http://localhost/GitHub/WebMusic/login.php">Login</a>';
+                        }
+                        ?>
+                    </div>
+                </div>
+                <!-- /.navbar-collapse -->
+            </div>
+            <!-- /.container -->
+        </nav>
+
+
+        <div class="container">
+            <h1>Cadastro de Musicos (Let's Rock)</h1>
+        </div>
 
 
 
-<hr>
-<div class="container">
+        <hr>
+        <div class="container">
 
-    <form method="post" action="Request.php?class=app\controller\MusicoCtr&method=run">
-        <input type="hidden" name="id" id="id" value="<?= $this->model->getId() ?>" ><br>
-        <label for="nome">Nome:</label><br>
-        <input type="text" name="nome" id="nome" value="<?= $this->model->getNome() ?>" required="required"><br>
-        <label for="login">Login:</label><br>
-        <input type="text" name="login" id="login" value="<?= $this->model->getLogin() ?>" required="required"><br>
-        <label for="senha">Senha:</label><br>
-        <input type="password" name="senha" id="senha" value="<?= $this->model->getSenha() ?>" required="required"><br>
-        <label for="sexo">Sexo:</label><br>    
-        <input type="radio" name="sexo" value="M" <?php if ($this->model->getSexo() == 'M') echo 'checked' ?>><label for="sexo">Masculino</label>    
-        <input type="radio" name="sexo" value="F" <?php if ($this->model->getSexo() == 'F') echo 'checked' ?> ><label for="sexo">Feminino</label><br>
-        <label for="cpf">CPF:</label><br>
-        <input type="text" name="cpf" id="cpf" value="<?= $this->model->getCpf() ?>"><br>
-        <label for="rg">RG:</label><br>
-        <input type="text" name="rg" id="rg" value="<?= $this->model->getRg() ?>"><br>  
+            <form method="post" action="Request.php?class=app\controller\MusicoCtr&method=run">
+                <input type="hidden" name="id" id="id" value="<?= $this->model->getId() ?>" ><br>
+                <label for="nome">Nome:</label><br>
+                <input type="text" name="nome" id="nome" value="<?= $this->model->getNome() ?>" required="required"><br>
+                <label for="login">Login:</label><br>
+                <input type="text" name="login" id="login" value="<?= $this->model->getLogin() ?>" required="required"><br>
+                <label for="senha">Senha:</label><br>
+                <input type="password" name="senha" id="senha" value="<?= $this->model->getSenha() ?>" required="required"><br>
+                <label for="sexo">Sexo:</label><br>    
+                <input type="radio" name="sexo" value="M" <?php if ($this->model->getSexo() == 'M') echo 'checked' ?>><label for="sexo">Masculino</label>    
+                <input type="radio" name="sexo" value="F" <?php if ($this->model->getSexo() == 'F') echo 'checked' ?> ><label for="sexo">Feminino</label><br>
+                <label for="cpf">CPF:</label><br>
+                <input type="text" name="cpf" id="cpf" value="<?= $this->model->getCpf() ?>"><br>
+                <label for="rg">RG:</label><br>
+                <input type="text" name="rg" id="rg" value="<?= $this->model->getRg() ?>"><br>  
 
-        <label>Banda:</label>
-        <select name="banda">
-            <?php
-            $bandas = $this->bandas;
-            foreach ($bandas as $banda) {
-                if ($banda->getId() == $this->model->getBandaModel()->getId())
-                    echo "<option selected value=\"{$banda->getId()}\">{$banda->getNome()}</option>";
-                else
-                    echo "<option value=\"{$banda->getId()}\">{$banda->getNome()}</option>";
-            }
-            ?>
-        </select>
-        <br>
-        <input type="submit" name="comando" value="Novo">
-        <input type="submit" name="comando" value="Salvar">
-        <input type="submit" name="comando" value="Excluir">
+                <label>Banda:</label>
+                <select name="banda">
+                    <?php
+                    $bandas = $this->bandas;
+                    foreach ($bandas as $banda) {
+                        if ($banda->getId() == $this->model->getBandaModel()->getId())
+                            echo "<option selected value=\"{$banda->getId()}\">{$banda->getNome()}</option>";
+                        else
+                            echo "<option value=\"{$banda->getId()}\">{$banda->getNome()}</option>";
+                    }
+                    ?>
+                </select>
+                <br>
+                <input type="submit" name="comando" value="Novo">
+                <input type="submit" name="comando" value="Salvar">
+                <input type="submit" name="comando" value="Excluir">
 
-    </form>
-</div>
+            </form>
+        </div>
 

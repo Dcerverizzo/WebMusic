@@ -65,21 +65,34 @@ class MusicoCtr extends \core\mvc\Controller {
     /* Futura funçao para logar */
 
     public function LogUser() {
-        $login = $_POST['login'];
-        $senha = $_POST['senha'];
-        try {
-            if ($this->dao->findByUser($login, $senha)) {
-                session_start();
-                $_SESSION['usuario'] = $login;
-                // var_dump($_SESSION['usuario']);
-                header("location:http://localhost/GitHub/WebMusic/");
-            } else {
+        session_start();
+        $acao = $_GET['acao'];
+        if ($acao == "Logout") {
+            session_destroy();
+            header("location:http://localhost/GitHub/WebMusic/login.php");
+        }
+        if ($acao == "cadastrar") {
+            $_SESSION['convidado'] = "convidado";
+            header("location:http://localhost/GitHub/WebMusic/Request.php?class=app\controller\MusicoCtr&method=showView");
+        }
+        if ($acao == "logar") {
+            $login = $_POST['login'];
+            $senha = $_POST['senha'];
+            try {
+                // var_dump($login, $senha);
+                if ($this->dao->findByUser($login, $senha)) {
+                    session_start();
+                    $_SESSION['usuario'] = $login;
+                    // var_dump($_SESSION['usuario']);
+                    header("location:http://localhost/GitHub/WebMusic/");
+                } else {
+                    echo 'Erro';
+                }
+            } catch (Exception $ex) {
                 echo 'Erro';
             }
-        } catch (Exception $ex) {
-            echo 'Erro';
         }
     }
 
-//put your code here
+    //put your code here
 }

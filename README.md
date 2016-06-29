@@ -7,15 +7,7 @@ Este sistema tem como principal objetivo aplicar conhecimentos acadêmicos obtid
 de desenvolvimento para servidores 2, que consiste em aplicar modelo de cadastros utilizando um framework 
 desenvolvido pelos em aula.
 
-#Tecnologia Utilizada
-- HTML5
-- CSS3
-- Twitter Bootstrap
-- Jquery
-- Design Patters
-- PostgreSQL
-- Strategy 
- 
+
 Sistema web desenvolvido na linguagem PHP para simples cadastros e algumas funcionalidades utilizando vários padrões de projetos e boas práticas de programação, sempre aprimorando o conhecimento adquirido em sala de aula.
 
 #Objetivos
