@@ -38,7 +38,7 @@ class BandaCtr extends \core\mvc\Controller {
     }
 
     public function viewToModel() {
-        $this->model = new \app\model\BandaModel($this->post['id'], $this->post['nome']);
+        $this->model = new \app\model\BandaModel($this->post['id'], $this->post['nome'], $this->post['intour']);
     }
 
     public function getBandas() {
@@ -51,8 +51,22 @@ class BandaCtr extends \core\mvc\Controller {
     }
 
     public function showReport() {
-        $view = new \app\view\banda\BandaReport();
-        $view->showReport();
+        if ($this->get) {
+            if (isset($this->get['id'])) { //..verifica se existe uma variável id no get
+                $id = $this->get['id']; //..pega o id 
+                $view = new \app\view\banda\BandaReport();
+                $view->showReport($id);
+            }
+        }
+    }
+
+    public function getBandasJson() {
+        try {
+            $nome = $this->get['nome'];
+            echo $this->dao->getBandasJson($nome);
+        } catch (\Exception $ex) {
+            echo 'erro';
+        }
     }
 
 //put your code here

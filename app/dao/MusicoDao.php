@@ -25,6 +25,8 @@ class MusicoDao extends \core\dao\Dao {
     const TB_CPF = 'cpf';
     const TB_SEXO = 'sexo';
     const TB_RG = 'rg';
+    const TB_LOGIN = 'login';
+    const TB_SENHA = 'senha';
     // const TB_BANDA = 'banda_musico';
     const TB_ID_BANDA = 'id_banda';
 
@@ -42,6 +44,8 @@ class MusicoDao extends \core\dao\Dao {
             self::TB_SEXO => $this->model->getSexo(),
             self::TB_CPF => $this->model->getCpf(),
             self::TB_RG => $this->model->getRg(),
+            self::TB_LOGIN => $this->model->getLogin(),
+            self::TB_SENHA => $this->model->getSenha(),
             // self::TB_BANDA => $this->model->setBanda_musico(),
             self::TB_ID_BANDA => $this->model->getBandaModel()->getId(),
         );
@@ -56,8 +60,8 @@ class MusicoDao extends \core\dao\Dao {
                 //Recupera banda do musico
                 $bandaDao = new BandaDao();
                 $bandaModel = $bandaDao->findById($dados[self::TB_ID_BANDA]);
-               // var_dump($dados);
-                $musicoModel = new \app\model\MusicoModel($dados[$this->tableId], $dados[self::TB_NOME], $dados[self::TB_SEXO], $dados[self::TB_CPF], $dados[self::TB_RG], $bandaModel);
+                // var_dump($dados);
+                $musicoModel = new \app\model\MusicoModel($dados[$this->tableId], $dados[self::TB_NOME], $dados[self::TB_SEXO], $dados[self::TB_CPF], $dados[self::TB_RG], $dados[self::TB_LOGIN], $dados[self::TB_SENHA], $bandaModel);
                 return $musicoModel;
             } else {
                 return NULL;
@@ -76,8 +80,8 @@ class MusicoDao extends \core\dao\Dao {
                 foreach ($dados as $musico) {
                     $bandaDao = new BandaDao();
                     $bandaModel = $bandaDao->findById($musico[self::TB_ID_BANDA]);
-                    var_dump($musico);
-                    $MusicoModel = new \app\model\MusicoModel($musico[$this->tableId], $musico[self::TB_NOME], $musico[self::TB_SEXO], $musico[self::TB_RG], $musico[self::TB_CPF], $bandaModel);
+
+                    $MusicoModel = new \app\model\MusicoModel($musico[$this->tableId], $musico[self::TB_NOME], $musico[self::TB_SEXO], $musico[self::TB_RG], $musico[self::TB_CPF], $dados[self::TB_LOGIN], $dados[self::TB_SENHA], $bandaModel);
                     $musicos[] = $MusicoModel;
                 }
                 // return $musicos;
@@ -86,6 +90,24 @@ class MusicoDao extends \core\dao\Dao {
             }
         } catch (\Exception $ex) {
             
+        }
+    }
+
+    public function findByUser($login, $senha) {
+        try {
+            $sqlObj = new \core\dao\SqlObject($this->connection);
+            $criteria = "where";
+            $dados = $sqlObj->select($this->tableName, '*', "login = {$login} and senha = {$senha}");
+            if ($dados) {
+                $dados = $dados[0];
+                // var_dump($dados);
+                $musicoModel = new \app\model\MusicoModel($dados[$this->tableId], $dados[self::TB_NOME], $dados[self::TB_SEXO], $dados[self::TB_CPF], $dados[self::TB_RG], $dados[self::TB_LOGIN], $dados[self::TB_SENHA]);
+                return true;
+            } else {
+                return NULL;
+            }
+        } catch (\Exception $ex) {
+            throw $ex;
         }
     }
 

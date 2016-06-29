@@ -88,6 +88,7 @@ abstract class Controller {
             //..cria uma view de suecesso
             $msg = new \core\mvc\view\Message(\core\Application::MSG_SUCCESS);
         } catch (\Exception $ex) {
+            var_dump($ex);
             //..caso ocorra algum erro, cria uma view de erro
             $msg = new \core\mvc\view\Message(\core\Application::MSG_ERROR);
         } finally {
@@ -158,4 +159,7 @@ abstract class Controller {
      * Exibe a view de listagem (ou pesquisa)
      */
     public abstract function showList();
+    
+    
+  
 }

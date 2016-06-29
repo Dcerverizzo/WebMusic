@@ -18,7 +18,7 @@ class Application {
     /**
      * O nome da aplicação
      */
-    const APP_NAME = 'Web Music | 5º TSI Noturno - FATEC';
+    const APP_NAME = 'Web Music | 5º TSI Matutino - FATEC';
     /**
      * Constante para uma mensagem de sucesso.
      */

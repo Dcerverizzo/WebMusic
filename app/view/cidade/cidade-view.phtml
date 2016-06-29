@@ -1,31 +1,35 @@
-<h1>Cadastro de Cidades</h1>
+<div class="container">
+
+    <h1>Cadastro de Cidades</h1>
+</div>
 <hr>
-<form method="post" action="Request.php?class=app\controller\CidadeCtr&method=run">
-    <input type="hidden" name="id" id="id" value="<?= $this->model->getId() ?>">
-    <label for="nome">Nome:</label>
-    <input type="text" name="nome" id="nome" maxlength="50" required="required" value="<?= $this->model->getNome() ?>">
-    <br>
-    <label for="uf">UF:</label>
-    <select name="uf">
-        <?php
-        $ufs = app\model\CidadeModel::getUfs();        
-        foreach ($ufs as $key => $value) {            
-            if($key == $this->model->getUf()){
-                echo "<option selected value=\"{$key}\">{$value}</option>";
+<div class="container">
+
+    <form method="post" action="Request.php?class=app\controller\CidadeCtr&method=run">
+        <input type="hidden" name="id" id="id" value="<?= $this->model->getId() ?>">
+        <label for="nome">Nome:</label>
+        <input type="text" name="nome" id="nome" maxlength="50" required="required" value="<?= $this->model->getNome() ?>">
+        <br>
+        <label for="uf">UF:</label>
+        <select name="uf">
+            <?php
+            $ufs = app\model\CidadeModel::getUfs();
+            foreach ($ufs as $key => $value) {
+                if ($key == $this->model->getUf()) {
+                    echo "<option selected value=\"{$key}\">{$value}</option>";
+                } else {
+                    echo "<option value=\"{$key}\">{$value}</option>";
+                }
             }
-            else{
-                echo "<option value=\"{$key}\">{$value}</option>";
-            }            
-        }
-        ?>
-    </select>
-    <br>
-    <label for="cep">CEP:</label>
-    <input type="text" name="cep" id="cep" maxlength="8" required="required" value="<?= $this->model->getCep() ?>">
-    <br>
-    <input type="submit" name="comando" value="Novo">
-    <input type="submit" name="comando" value="Salvar">
-    <input type="submit" name="comando" value="Excluir">
+            ?>
+        </select>
+        <br>
+        <label for="cep">CEP:</label>
+        <input type="text" name="cep" id="cep" maxlength="8" required="required" value="<?= $this->model->getCep() ?>">
+        <br>
+        <input type="submit" name="comando" value="Novo">
+        <input type="submit" name="comando" value="Salvar">
+        <input type="submit" name="comando" value="Excluir">
 
-
+    </form>
 </form>

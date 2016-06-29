@@ -64,9 +64,16 @@ class MusicaCtr extends \core\mvc\Controller {
     }
 
     public function showReport() {
-        $view = new \app\view\musica\MusicaReport();
-        $view->showReport();
+        if ($this->get) {
+            if (isset($this->get['id'])) { //..verifica se existe uma variável id no get
+                $id = $this->get['id']; //..pega o id 
+                //..recupera o modelo fazendo uma consulta no bando por id
+                $view = new \app\view\musica\MusicaReport();
+                $view->showReport($id);
+                //      $this->model = $this->dao->findById($id);
+            }
+        }
     }
 
-//put your code here
+    //put your code here
 }

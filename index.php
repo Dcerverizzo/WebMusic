@@ -14,6 +14,11 @@ require_once 'autoload.php';
 /* $musica = new \app\view\musica\MusicaView();
   $musica->show(); */
 
-$banda = new \app\view\banda\BandaView();
-$banda->show();
+ $banda = new \app\view\banda\BandaView();
+  $banda->show(); 
 ?>
+
+
+
+   
+

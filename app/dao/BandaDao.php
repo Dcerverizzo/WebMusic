@@ -67,4 +67,20 @@ class BandaDao extends \core\dao\Dao {
         }
     }
 
+    public function getBandasJson($nome = null) {
+        try {
+            $sqlObj = new \core\dao\SqlObject($this->connection);
+            //  $criteria = "upper (m.nome) like upper('{$nome}%') and m.id_banda = b.id_banda";
+            //   $dados = $sqlObj->select('musica m, banda b', 'm.id_banda, m.nome, m.duracao,m.album,m.compositor1, b.nome as banda', $criteria, 'm.nome');
+            $dados = $sqlObj->select('banda b', 'b.id_banda, b.nome', "upper(b.nome) like upper('{$nome}%')", 'b.nome');
+            if ($dados) {
+                return json_encode($dados);
+            } else {
+                return '';
+            }
+        } catch (\Exception $ex) {
+            
+        }
+    }
+
 }

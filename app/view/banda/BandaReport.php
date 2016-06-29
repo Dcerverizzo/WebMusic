@@ -15,9 +15,12 @@ namespace app\view\banda;
  */
 class BandaReport {
 
-    public function showReport() {
+    public function showReport($id) {
         require_once ("core/vendor/tcpdf/tcpdf.php");
         require_once 'autoload.php';
+
+
+        echo $id;
 
 
         $relatorio = new \TCPDF();
@@ -35,22 +38,41 @@ class BandaReport {
         $relatorio->Cell(60, 8, 'Nome', 1, 0, 'C', true);
         $relatorio->Cell(60, 8, 'In Tour', 1, 0, 'C', true);
         $relatorio->Ln();
+               //!= arruma depois 
+        if ($id == null) {
+            $bandaDao = new \app\dao\BandaDao();
+            $bandas = $bandaDao->findById($id);
 
-        $bandaDao = new \app\dao\BandaDao();
-        $bandas = $bandaDao->selectAll();
 
-        $fill = false;
-        foreach ($bandas as $banda) {
-            $relatorio->Cell(60, 8, $banda->getId(), 1, 0, 'C', $fill);
-            $relatorio->Cell(60, 8, $banda->getNome(), 1, 0, 'C', $fill);
-            $relatorio->Cell(60, 8, $banda->getInTours(), 1, 0, 'C', $fill);
-            $relatorio->Ln();
-            $fill = !$fill;
+            $fill = false;
+            foreach ($bandas as $banda) {
+                $relatorio->Cell(60, 8, $banda->getId(), 1, 0, 'C', $fill);
+                $relatorio->Cell(60, 8, $banda->getNome(), 1, 0, 'C', $fill);
+                $relatorio->Cell(60, 8, $banda->getInTours(), 1, 0, 'C', $fill);
+                $relatorio->Ln();
+                $fill = !$fill;
+            }
+
+            ob_start();
+            $relatorio->Output();
+            ob_end_flush();
+        } else {
+            $bandaDao = new \app\dao\BandaDao();
+            $bandas = $bandaDao->selectAll();
+
+            $fill = false;
+            foreach ($bandas as $banda) {
+                $relatorio->Cell(60, 8, $banda->getId(), 1, 0, 'C', $fill);
+                $relatorio->Cell(60, 8, $banda->getNome(), 1, 0, 'C', $fill);
+                $relatorio->Cell(60, 8, $banda->getInTours(), 1, 0, 'C', $fill);
+                $relatorio->Ln();
+                $fill = !$fill;
+            }
+
+            ob_start();
+            $relatorio->Output();
+            ob_end_flush();
         }
-
-        ob_start();
-        $relatorio->Output();
-        ob_end_flush();
     }
 
 }

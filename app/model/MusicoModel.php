@@ -20,15 +20,36 @@ class MusicoModel extends \core\mvc\Model {
     private $sexo;
     private $cpf;
     private $rg;
+    private $login;
+    private $senha;
     //private $banda_musico;
     private $bandaModel;
 
-    function __construct($id = null, $nome = null, $sexo = null, $cpf = null, $rg = null, $bandaModel = null) {
+    function __construct($id = null, $nome = null, $sexo = null, $cpf = null, $rg = null, $login = null, $senha = null, $bandaModel = null) {
+        parent::__construct($id, $nome, $sexo, $cpf, $rg, $bandaModel);
         $this->nome = $nome;
         $this->sexo = $sexo;
         $this->cpf = $cpf;
         $this->rg = $rg;
+        $this->login = $login;
+        $this->senha = $senha;
         is_null($bandaModel) ? $this->bandaModel = new BandaModel() : $this->bandaModel = $bandaModel;
+    }
+
+    function getLogin() {
+        return $this->login;
+    }
+
+    function getSenha() {
+        return $this->senha;
+    }
+
+    function setLogin($login) {
+        $this->login = $login;
+    }
+
+    function setSenha($senha) {
+        $this->senha = $senha;
     }
 
     public function getNome() {
@@ -66,15 +87,15 @@ class MusicoModel extends \core\mvc\Model {
     public function setRg($rg) {
         $this->rg = $rg;
     }
-    function getBandaModel() {
+
+    public function getBandaModel() {
         return $this->bandaModel;
     }
 
-    function setBandaModel($bandaModel) {
+    public function setBandaModel($bandaModel) {
         $this->bandaModel = $bandaModel;
     }
 
-    
     public function setId_banda($id_banda) {
         $this->id_banda = $id_banda;
     }

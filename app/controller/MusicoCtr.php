@@ -37,7 +37,7 @@ class MusicoCtr extends \core\mvc\Controller {
                     $criterio .= " and p.id_banda = {$this->post['banda']}";
 
                 $this->post['ordenar'] == 0 ? $orderBy = 'p.nome, b.nome' : $orderBy = 'b.nome, p.nome';
-                $dados = $sqlObj->select('pessoa_musico p, banda b', 'p.id_pessoa_musico,p.sexo,p.cpf,p.rg,p.id_banda,p.nome, b.nome as banda', $criterio, $orderBy);
+                $dados = $sqlObj->select('pessoa_musico p, banda b', 'p.id_pessoa_musico,p.sexo,p.cpf,p.rg,p.login,p.id_banda,p.nome, b.nome as banda', $criterio, $orderBy);
 
                 // var_dump($dados);
             }
@@ -50,7 +50,7 @@ class MusicoCtr extends \core\mvc\Controller {
     }
 
     public function viewToModel() {
-        $this->model = new \app\model\MusicoModel($this->post['id'], $this->post['nome'], $this->post['sexo'], $this->post['rg'], $this->post['cpf'], new \app\model\BandaModel($this->post['banda']));
+        $this->model = new \app\model\MusicoModel($this->post['id'], $this->post['nome'], $this->post['sexo'], $this->post['cpf'], $this->post['rg'], $this->post['login'], $this->post['senha'], new \app\model\BandaModel($this->post['banda']));
     }
 
     public function getBandas() {
@@ -62,7 +62,24 @@ class MusicoCtr extends \core\mvc\Controller {
         }
     }
 
-   
+    /* Futura funçao para logar */
+
+    public function LogUser() {
+        $login = $_POST['login'];
+        $senha = $_POST['senha'];
+        try {
+            if ($this->dao->findByUser($login, $senha)) {
+                session_start();
+                $_SESSION['usuario'] = $login;
+                // var_dump($_SESSION['usuario']);
+                header("location:http://localhost/GitHub/WebMusic/");
+            } else {
+                echo 'Erro';
+            }
+        } catch (Exception $ex) {
+            echo 'Erro';
+        }
+    }
 
 //put your code here
 }

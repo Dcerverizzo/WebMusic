@@ -15,7 +15,7 @@ namespace app\view\musica;
  */
 class MusicaReport {
 
-    public function showReport() {
+    public function showReport($id) {
         require_once ("core/vendor/tcpdf/tcpdf.php");
         require_once 'autoload.php';
 
@@ -40,10 +40,8 @@ class MusicaReport {
         $relatorio->Ln();
 
         $musicaDao = new \app\dao\MusicaDao();
-        $musicas = $musicaDao->selectAll();
+        $musicas = $musicaDao->findById($id);
 
-        $bandaDao = new \app\dao\BandaDao();
-        $bandaModel = $bandaDao->findById($musica['id_banda']);
 
         $fill = false;
         foreach ($musicas as $musica) {
