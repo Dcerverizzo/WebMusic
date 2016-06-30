@@ -39,7 +39,8 @@ class CidadeReport {
 
 
         $cidadeDao = new \app\dao\CidadeDao();
-        $cidades = $cidadeDao->selectAll();
+        $cidades = $cidadeDao->findById(1);
+        //  $cidades = $cidadeDao->selectAll();
 
 
         $fill = false;

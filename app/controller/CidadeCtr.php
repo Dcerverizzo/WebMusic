@@ -58,7 +58,7 @@ class CidadeCtr extends \core\mvc\Controller {
 
     public function showReport() {
         $view = new \app\view\cidade\CidadeReport();
-        $view->showReport();
+          $view->showReport();
     }
 
 }
