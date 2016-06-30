@@ -67,6 +67,25 @@ class BandaDao extends \core\dao\Dao {
         }
     }
 
+    public function selectByName($id) {
+        try {
+            $sqlObj = new \core\dao\SqlObject($this->connection);
+            $dados = $sqlObj->select($this->tableName, '*', "{$this->tableId} = {$id}");
+            if ($dados) {
+                $bandas = null;
+                foreach ($dados as $dado) {
+                    $bandaModel = new \app\model\BandaModel($dado[$this->tableId], $dado[self::TB_NOME], $dado[self::TB_TOUR]);
+                    $bandas[] = $bandaModel;
+                }
+                return $bandas;
+            } else {
+                return NULL;
+            }
+        } catch (\Exception $ex) {
+            
+        }
+    }
+
     public function getBandasJson($nome = null) {
         try {
             $sqlObj = new \core\dao\SqlObject($this->connection);

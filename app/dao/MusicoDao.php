@@ -97,14 +97,14 @@ class MusicoDao extends \core\dao\Dao {
         try {
             $sqlObj = new \core\dao\SqlObject($this->connection);
             $criteria = "where";
-            $dados = $sqlObj->select($this->tableName, '*', "login = {$login} and senha = {$senha}");
+            $dados = $sqlObj->select($this->tableName, '*', "login = {$login} and senha = '{$senha}'");
             if ($dados) {
                 $dados = $dados[0];
                 // var_dump($dados);
                 $musicoModel = new \app\model\MusicoModel($dados[$this->tableId], $dados[self::TB_NOME], $dados[self::TB_SEXO], $dados[self::TB_CPF], $dados[self::TB_RG], $dados[self::TB_LOGIN], $dados[self::TB_SENHA]);
                 return true;
             } else {
-                return NULL;
+                return false;
             }
         } catch (\Exception $ex) {
             throw $ex;

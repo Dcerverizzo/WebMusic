@@ -4,7 +4,7 @@
 <hr>
 <div class="container">
 
-    <form method="post" action="Request.php?class=app\controller\MusicaCtr&method=run">
+    <form method="post" class="form" action="Request.php?class=app\controller\MusicaCtr&method=run">
         <input type="hidden" name="id" id="id" value="<?= $this->model->getId() ?>">
         <label for="nome">Nome:</label><br>
         <input type="text" name="nome" id="nome" value="<?= $this->model->getNome() ?>" required="required"><br>
@@ -13,21 +13,13 @@
         <label for="album">Album:</label><br>
         <input type="text" name="album" id="album" value="<?= $this->model->getAlbum() ?>"><br><br>
 
-        <label>Banda:</label> <button type="button" onclick="mostrarOcultarDiv('listarBandas');" >Localizar Banda</button>
-       <!-- <select name="banda">
-        <?php
-        $bandas = $this->bandas;
-        foreach ($bandas as $banda) {
-            if ($banda->getId() == $this->model->getBandaModel()->getId())
-                echo "<option selected value=\"{$banda->getId()}\">{$banda->getNome()}</option>";
-            else
-                echo "<option value=\"{$banda->getId()}\">{$banda->getNome()}</option>";
-        }
-        ?>
-       </select> --><br>
-        <input type="text" name="banda" id="banda" value="<?= $this->model->getBandaModel()->getId() ?>" readonly><br>
+        <label>Banda:</label> <button type="button" onclick="mostrarOcultarDiv('listarBandas')" >Localizar Banda</button>
 
         <br>
+        <input type="hidden" name="idbanda" id="idbanda" value="<?= $this->model->getBandaModel()->getId() ?>" readonly><br>
+        <input type="text" name="banda" id="banda" value="<?= $this->model->getBandaModel()->getNome() ?>" readonly><br>
+        <br>
+        
         <label for="compositor">Compositor:</label><br>
         <input type="text" name="compositor" id="compositor" value="<?= $this->model->getCompositor() ?>"><br><br>
 
@@ -39,11 +31,11 @@
 </div>
 
 <!-- div para listar produtos -->
-<div id="listarBandas" style="display: none; background-color: #ffffcc; border: thin solid navy; height: 200px; position: absolute; top:60%; left: 50%; margin-left:-220px; margin-top: -100px;">
+<div id="listarBandas" style="display: none;  border: thin solid navy; height: 200px; position: absolute; top:60%; left: 50%; margin-left:-220px; margin-top: -100px;">
     <button onclick="mostrarOcultarDiv('listarBandas')">Fechar</button><br>
     <label for="nome">Nome Banda</label>
     <input type="text" id="nome" size="50" >
-    <button type="button" onclick="listarBandas();">Listar</button>
+    <button type="button" onclick="listarBandas()">Listar</button>
     <div style="height: 150px; overflow-y: auto;">
         <table border="1" class="table table-striped table-bordered nowrap">
             <thead>
@@ -54,30 +46,40 @@
             </tbody>
         </table>    
     </div>
-</div>
+</div> 
+<br><br>
+
+
+
+
+
+
 
 
 <script type="text/javascript" >
     function mostrarOcultarDiv(div) {
         $("#" + div).toggle('fast');
     }
+    function selecionarBanda(id, nome) {
+        $("#idbanda").val(id);
+        $("#banda").val(nome);
+        mostrarOcultarDiv('listarBandas');
+    }
+
+
     function listarBandas() {
         nome = $("#banda").val();
-        $.getJSON("http://localhost/GitHub/WebMusic/Request.php?class=app\controller\BandaCtr&method=getBandasJson&nome=" + nome,
-                   function (result) {
+        $.getJSON("http://localhost/GitHub/WebMusic/Request.php?class=app\\controller\\BandaCtr&method=getBandasJson&nome=" + nome,
+                function (result) {
                     $("#tabela_banda").empty();
                     $.each(result, function (index, value) {
-                        $("#tabela_banda").append("<tr id=\"" + value.id_banda + "\"><td>" + value.nome +  "</td><td><button type=\"button\" onclick=\"selecionarBanda(" + value.id_banda + ",'" + value.nome + ")\">OK</button></td></tr>");
+                        $("#tabela_banda").append("<tr><td> id=\"" + value.id_banda + "\"><td>" + value.nome + "</td><td><button type=\"button\" onclick=\"selecionarBanda(" + value.id_banda + ", '" + value.nome + "')\">OK</button></td></tr>");
                     });
                 }
         );
     }
 
-    function selecionarBanda(id, nome) {
-        $("#idbanda").val(id);
-        $("#nomebanda").val(nome);
-        mostrarOcultarDiv('listarBandas');
-    }
+
 </script>
 
 

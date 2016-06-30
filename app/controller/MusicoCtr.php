@@ -94,5 +94,15 @@ class MusicoCtr extends \core\mvc\Controller {
         }
     }
 
+    public function showReport() {
+        if ($this->get) {
+            if (isset($this->get['id'])) { //..verifica se existe uma variável id no get
+                $id = $this->get['id']; //..pega o id 
+                $view = new \app\view\musico\MusicoReport();
+                $view->showReport();
+            }
+        }
+    }
+
     //put your code here
 }

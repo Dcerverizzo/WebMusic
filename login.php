@@ -10,8 +10,8 @@
         <div class="login-card">
             <h1>Login</h1><br>
             <form id="login" name="login" action="Request.php?class=app\controller\MusicoCtr&method=LogUser&acao=logar"  method="POST">
-                <input type="text" name="login" placeholder="Usuario">
-                <input type="password" name="senha" placeholder="Senha">
+                <input type="text" name="login" placeholder="Usuario" required>
+                <input type="password" name="senha" placeholder="Senha" required>
                 <input type="hidden"  name="acao" value="logar"/> 
                 <input type="submit" name="login" class="login login-submit" value="login">
             </form>

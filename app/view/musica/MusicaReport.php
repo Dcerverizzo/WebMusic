@@ -32,31 +32,51 @@ class MusicaReport {
         $relatorio->SetFont('Times', 'B', 14);
         $relatorio->Cell(0, 8, 'Relatorio das Musicas', 1, 1, 'C', true);
         $relatorio->Cell(15, 8, 'Id', 1, 0, 'C', true);
+        $relatorio->Cell(60, 8, 'Musica', 1, 0, 'C', true);
+        $relatorio->Cell(60, 8, 'Album', 1, 0, 'C', true);
+        $relatorio->Cell(35, 8, 'Banda', 1, 0, 'C', true);
         $relatorio->Cell(20, 8, 'Duração', 1, 0, 'C', true);
-        $relatorio->Cell(30, 8, 'Album', 1, 0, 'C', true);
-        $relatorio->Cell(40, 8, 'Banda', 1, 0, 'C', true);
-        $relatorio->Cell(45, 8, 'Compositor', 1, 0, 'C', true);
-        $relatorio->Cell(40, 8, 'Nome', 1, 0, 'C', true);
         $relatorio->Ln();
 
-        $musicaDao = new \app\dao\MusicaDao();
-        $musicas = $musicaDao->findById($id);
+        if ($id == "null") {
+            $musicaDao = new \app\dao\MusicaDao();
+            $musicas = $musicaDao->selectAll();
 
 
-        $fill = false;
-        foreach ($musicas as $musica) {
-            $relatorio->Cell(15, 8, $musica->getId(), 1, 0, 'C', $fill);
-            $relatorio->Cell(20, 8, $musica->getDuracao(), 1, 0, 'C', $fill);
-            $relatorio->Cell(30, 8, $musica->getAlbum(), 1, 0, 'C', $fill);
-            $relatorio->Cell(40, 8, $musica->getBandaModel()->getId(), 1, 0, 'C', $fill);
-            $relatorio->Cell(45, 8, $musica->getCompositor(), 1, 0, 'C', $fill);
-            $relatorio->Cell(40, 8, $musica->getNome(), 1, 0, 'C', $fill);
-            $fill = !$fill;
+
+            $fill = false;
+            foreach ($musicas as $musica) {
+                $relatorio->Cell(15, 8, $musica->getId(), 1, 0, 'C', $fill);
+                $relatorio->Cell(60, 8, $musica->getDuracao(), 1, 0, 'C', $fill);
+                $relatorio->Cell(60, 8, $musica->getAlbum(), 1, 0, 'C', $fill);
+                $relatorio->Cell(35, 8, $musica->getBandaModel()->getNome(), 1, 0, 'C', $fill);
+                $relatorio->Cell(20, 8, $musica->getNome(), 1, 0, 'C', $fill);
+                $fill = !$fill;
+                $relatorio->Ln();
+            }
+
+            ob_start();
+            $relatorio->Output();
+            ob_end_flush();
+        } else {
+            $musicaDao = new \app\dao\MusicaDao();
+            $musicas = $musicaDao->selectId($id);
+
+            $fill = false;
+            foreach ($musicas as $musica) {
+                $relatorio->Cell(15, 8, $musica->getId(), 1, 0, 'C', $fill);
+                $relatorio->Cell(60, 8, $musica->getDuracao(), 1, 0, 'C', $fill);
+                $relatorio->Cell(60, 8, $musica->getAlbum(), 1, 0, 'C', $fill);
+                $relatorio->Cell(35, 8, $musica->getBandaModel()->getNome(), 1, 0, 'C', $fill);
+                $relatorio->Cell(20, 8, $musica->getNome(), 1, 0, 'C', $fill);
+                $fill = !$fill;
+                $relatorio->Ln();
+            }
+
+            ob_start();
+            $relatorio->Output();
+            ob_end_flush();
         }
-
-        ob_start();
-        $relatorio->Output();
-        ob_end_flush();
     }
 
 }

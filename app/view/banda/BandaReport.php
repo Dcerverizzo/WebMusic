@@ -18,11 +18,7 @@ class BandaReport {
     public function showReport($id) {
         require_once ("core/vendor/tcpdf/tcpdf.php");
         require_once 'autoload.php';
-
-
-        echo $id;
-
-
+        
         $relatorio = new \TCPDF();
         $relatorio->SetAuthor('Daniel Cerverizzo');
 
@@ -39,9 +35,9 @@ class BandaReport {
         $relatorio->Cell(60, 8, 'In Tour', 1, 0, 'C', true);
         $relatorio->Ln();
                //!= arruma depois 
-        if ($id == null) {
+        if ($id == "all") {
             $bandaDao = new \app\dao\BandaDao();
-            $bandas = $bandaDao->findById($id);
+            $bandas = $bandaDao->selectAll();
 
 
             $fill = false;
@@ -58,7 +54,7 @@ class BandaReport {
             ob_end_flush();
         } else {
             $bandaDao = new \app\dao\BandaDao();
-            $bandas = $bandaDao->selectAll();
+            $bandas = $bandaDao->selectByName($id);
 
             $fill = false;
             foreach ($bandas as $banda) {

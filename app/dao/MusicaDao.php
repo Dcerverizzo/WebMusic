@@ -60,12 +60,34 @@ class MusicaDao extends \core\dao\Dao {
     public function selectAll($criteria = null, $orderBy = null, $groupBy = null, $limit = null) {
         try {
             $sqlObj = new \core\dao\SqlObject($this->connection);
+            $dados = $sqlObj->select($this->tableName, '*');
             if ($dados) {
                 $musicas = null;
                 foreach ($dados as $musica) {
                     $bandaDao = new BandaDao();
                     $bandaModel = $bandaDao->findById($musica[self::TB_ID_BANDA]);
-                    $musicaModel = new \app\model\MusicaModel($musica[$this->tableId], $musica[self::TB_NOME], $musica[self::TB_ALBUM], $musica[self::TB_COMPOSITOR], $musica[self::TB_DURACAO], $musica[self::TB_BANDA], $bandaModel);
+                    $musicaModel = new \app\model\MusicaModel($musica[$this->tableId], $musica[self::TB_NOME], $musica[self::TB_ALBUM], $musica[self::TB_COMPOSITOR], $musica[self::TB_DURACAO], $bandaModel);
+                    $musicas[] = $musicaModel;
+                }
+                return $musicas;
+            } else {
+                return NULL;
+            }
+        } catch (\Exception $ex) {
+            throw $ex;
+        }
+    }
+
+    public function selectId($id) {
+        try {
+            $sqlObj = new \core\dao\SqlObject($this->connection);
+            $dados = $sqlObj->select($this->tableName, '*', "{$this->tableId} = {$id}");
+            if ($dados) {
+                $musicas = null;
+                foreach ($dados as $musica) {
+                    $bandaDao = new BandaDao();
+                    $bandaModel = $bandaDao->findById($musica[self::TB_ID_BANDA]);
+                    $musicaModel = new \app\model\MusicaModel($musica[$this->tableId], $musica[self::TB_NOME], $musica[self::TB_ALBUM], $musica[self::TB_COMPOSITOR], $musica[self::TB_DURACAO], $bandaModel);
                     $musicas[] = $musicaModel;
                 }
                 return $musicas;

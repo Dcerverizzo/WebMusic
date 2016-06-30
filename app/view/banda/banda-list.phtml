@@ -5,8 +5,12 @@
 <form method="post" action="Request.php?class=app\controller\BandaCtr&method=showList">
     <label for="nome">Nome:</label>
     <input type="text" name="nome">
-    <input type="submit" name="comando" value="Listar">    
+    <input type="submit" name="comando" value="Listar"> 
+    <a href="Request.php?class=app\controller\BandaCtr&method=showReport&id=all" value="Relatorio">
+            <input type="button" name="comando" value="Relatorio"> 
+    </a>
 </form>
+
 
 <table class="table table-striped table-bordered nowrap" border="1">
     <tr>

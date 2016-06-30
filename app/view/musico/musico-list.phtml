@@ -28,7 +28,7 @@
 
 <table border="1" class="table table-striped table-bordered nowrap">
     <tr>
-        <th>Nome</th><th>Sexo</th><th>CPF</th><th>RG</th><th>Banda</th><th>Visualizar</th>
+        <th>Nome</th><th>Sexo</th><th>CPF</th><th>RG</th><th>Banda</th><th>Visualizar</th><th>Relatorio</th>
     </tr>
     <?php
     if ($this->model) {
@@ -41,6 +41,8 @@
                 <td><?= $musico['rg'] ?></td>
                 <td><?= $musico['banda'] ?></td>   
                 <td><a href="Request.php?class=app\controller\MusicoCtr&method=showView&id=<?= $musico['id_pessoa_musico'] ?>">OK</a></td>
+                <td><a href="Request.php?class=app\controller\MusicoCtr&method=showReport&id=<?= $musico['id_pessoa_musico']?>">Relatorio</a></td>
+
             </tr>
             <?php
         }

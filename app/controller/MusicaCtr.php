@@ -49,7 +49,7 @@ class MusicaCtr extends \core\mvc\Controller {
 
     public function viewToModel() {
         $this->model = new \app\model\MusicaModel(
-                $this->post['id'], $this->post['duracao'], $this->post['album'], $this->post['compositor'], $this->post['nome'], new \app\model\BandaModel($this->post['banda']));
+                $this->post['id'], $this->post['duracao'], $this->post['album'], $this->post['compositor'], $this->post['nome'], new \app\model\BandaModel($this->post['idbanda']));
     }
 
 //(nome, album, id_banda, compositor1, duracao) 
@@ -68,6 +68,9 @@ class MusicaCtr extends \core\mvc\Controller {
             if (isset($this->get['id'])) { //..verifica se existe uma variável id no get
                 $id = $this->get['id']; //..pega o id 
                 //..recupera o modelo fazendo uma consulta no bando por id
+                if ($id == null) {
+                    $id = "null";
+                }
                 $view = new \app\view\musica\MusicaReport();
                 $view->showReport($id);
                 //      $this->model = $this->dao->findById($id);
